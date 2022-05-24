@@ -1,1 +1,59 @@
-<p>crypto-detail works!</p>
+<div class="asset-info" *ngIf="asset">
+
+  <div class="header">
+    <div class="asset-title">
+      {{asset.symbol}} USD
+    </div>
+    <div class="asset-name">
+      {{asset.name}}
+    </div>
+  </div>
+
+  <div class="asset-price" *ngIf="asset">
+    <div class="price-container" nz-row nzAlign="bottom">
+      <div class="price" appCheckPrice>
+        {{ asset.priceUsd | number : '1.1-2' }}
+      </div>
+      <div>USD</div>
+      <div class="price-change" appCheckChange [price]="getPriceChangePercent()">
+        <span>
+          {{getPriceChangePercent() > 0 ? '+' : ''}}{{getPriceChange() | number : '1.0-2'}}
+        </span>
+        <span>
+          ({{getPriceChangePercent() > 0 ? '+' : ''}}{{asset.changePercent24Hr | number : '1.0-2'}}% )
+        </span>
+      </div>
+    </div>
+  </div>
+
+
+  <div nz-row class="asset-values">
+    <div nz-col nzSpan="4">
+      <div class="value">
+        {{asset.marketCapUsd | numberSuffix : 2}}
+      </div>
+      <div>CAP. DE MERCADO</div>
+    </div>
+    <div nz-col nzSpan="4">
+      <div class="value">
+        {{asset.volumeUsd24Hr | numberSuffix : 2}}
+      </div>
+      <div>VOLUMEN</div>
+    </div>
+    <div nz-col nzSpan="4">
+      <div class="value">
+        {{asset.supply | numberSuffix : 2}}
+      </div>
+      <div>OFERTA</div>
+    </div>
+  </div>
+
+</div>
+
+<nz-divider>
+
+</nz-divider>
+
+<div *ngIf="candles">
+  <app-stock-chart [data]="candles"></app-stock-chart>
+</div>

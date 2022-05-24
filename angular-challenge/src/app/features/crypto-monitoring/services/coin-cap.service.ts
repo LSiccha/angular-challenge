@@ -2,7 +2,15 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {environment} from "../../../../environments/environment";
 import {Observable} from "rxjs";
-import {Asset} from "../models/asset";
+
+interface CandleParams  {
+  exchange: string ,
+  interval: string,
+  baseId: string,
+  quoteId: string,
+  start: number,
+  end: number
+}
 
 @Injectable({
   providedIn: 'root'
@@ -23,26 +31,21 @@ export class CoinCapService {
     return this.http.get<any>(`${this.base_url}/assets/${id}`)
   }
 
-  getCandles(exchange: string,
-             interval: string,
-             baseId: string,
-             quoteId: string,
-             start: number,
-             end: number
+  getCandles(params: CandleParams
   )
   {
-    let params = new HttpParams()
-      .set('exchange', exchange)
-      .set('interval', interval)
-      .set('baseId', baseId)
-      .set('quoteId', quoteId)
-      .set('start', start)
-      .set('end', end)
+    let p = new HttpParams()
+      .set('exchange', params.exchange)
+      .set('interval', params.interval)
+      .set('baseId', params.baseId)
+      .set('quoteId', params.quoteId)
+      .set('start', params.start)
+      .set('end', params.end)
 
     return this.http.get(
       `${this.base_url}/candles`,
       {
-        params : params
+        params : p
       }
     )
 

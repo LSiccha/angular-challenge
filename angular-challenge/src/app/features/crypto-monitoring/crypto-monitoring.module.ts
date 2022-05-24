@@ -7,6 +7,7 @@ import {SharedModule} from "../../shared/shared.module";
 import { CryptoListComponent } from './components/crypto-list/crypto-list.component';
 import { CryptosComponent } from './pages/cryptos/cryptos.component';
 import { CryptoDetailComponent } from './pages/crypto-detail/crypto-detail.component';
+import { StockChartComponent } from './components/stock-chart/stock-chart.component';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { CryptoDetailComponent } from './pages/crypto-detail/crypto-detail.compo
     LayoutComponent,
     CryptoListComponent,
     CryptosComponent,
-    CryptoDetailComponent
+    CryptoDetailComponent,
+    StockChartComponent
   ],
   imports: [
     CommonModule,

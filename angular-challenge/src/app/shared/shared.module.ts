@@ -16,11 +16,13 @@ import {NzDropDownModule} from "ng-zorro-antd/dropdown";
 import {FormsModule} from "@angular/forms";
 import { NumberSuffixPipe } from './pipes/number-suffix.pipe';
 import {NzBreadCrumbModule} from "ng-zorro-antd/breadcrumb";
+import { CheckChangeDirective } from './directives/check-change.directive';
 
 
 @NgModule({
   declarations: [
-    NumberSuffixPipe
+    NumberSuffixPipe,
+    CheckChangeDirective
   ],
   imports: [
     CommonModule
@@ -41,7 +43,8 @@ import {NzBreadCrumbModule} from "ng-zorro-antd/breadcrumb";
         NzDropDownModule,
         FormsModule,
         NumberSuffixPipe,
-        NzBreadCrumbModule
+        NzBreadCrumbModule,
+        CheckChangeDirective
     ]
 })
 export class SharedModule { }
