@@ -1,0 +1,50 @@
+
+::ng-deep .ant-table-thead > tr > th {
+  background-color: #001529;
+  color: white;
+  margin-top: 200px
+}
+
+
+::ng-deep .ant-table-thead th.ant-table-column-sort {
+  background-color: #001529;
+  color: #1890ff;
+}
+
+.search-box {
+  padding: 8px;
+}
+
+.search-box input {
+  width: 188px;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.search-box button {
+  width: 90px;
+}
+
+.search-button {
+  margin-right: 8px;
+}
+
+td{
+  font-weight: bold;
+}
+
+.asset {
+  color: #1e53e5;
+  font-weight: bolder;
+}
+
+::ng-deep .asset:hover {
+  background-color: yellowgreen;
+  color: #1890ff;
+}
+
+.asset > span:hover {
+  cursor: pointer;
+}
+
+

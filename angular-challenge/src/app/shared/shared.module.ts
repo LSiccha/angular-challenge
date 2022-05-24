@@ -12,26 +12,36 @@ import {NzModalModule} from "ng-zorro-antd/modal";
 import {NzFormModule} from "ng-zorro-antd/form";
 import {NzInputModule} from "ng-zorro-antd/input";
 import {NzSelectModule} from "ng-zorro-antd/select";
+import {NzDropDownModule} from "ng-zorro-antd/dropdown";
+import {FormsModule} from "@angular/forms";
+import { NumberSuffixPipe } from './pipes/number-suffix.pipe';
+import {NzBreadCrumbModule} from "ng-zorro-antd/breadcrumb";
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    NumberSuffixPipe
+  ],
   imports: [
     CommonModule
   ],
-  exports: [
-    NzLayoutModule,
-    NzMenuModule,
-    NzIconModule,
-    NzTypographyModule,
-    NzGridModule,
-    NzButtonModule,
-    NzTableModule,
-    NzDividerModule,
-    NzModalModule,
-    NzFormModule,
-    NzInputModule,
-    NzSelectModule,
-  ]
+    exports: [
+        NzLayoutModule,
+        NzMenuModule,
+        NzIconModule,
+        NzTypographyModule,
+        NzGridModule,
+        NzButtonModule,
+        NzTableModule,
+        NzDividerModule,
+        NzModalModule,
+        NzFormModule,
+        NzInputModule,
+        NzSelectModule,
+        NzDropDownModule,
+        FormsModule,
+        NumberSuffixPipe,
+        NzBreadCrumbModule
+    ]
 })
 export class SharedModule { }
