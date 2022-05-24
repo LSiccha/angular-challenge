@@ -54,6 +54,13 @@
 
 </nz-divider>
 
+<h1 *ngIf="asset">
+  {{asset.symbol}}/USD Graph
+
+</h1>
+<app-interval-selector (onSubmit)="updateInterval($event)"></app-interval-selector>
+<app-date-picker (onSubmit)="updateDateRange($event)"></app-date-picker>
+
 <div *ngIf="candles">
   <app-stock-chart [data]="candles"></app-stock-chart>
 </div>

@@ -1,0 +1,8 @@
+<nz-range-picker
+  [nzShowTime]="{ nzFormat: 'HH:mm' }"
+  nzFormat="yyyy-MM-dd HH:mm"
+  [(ngModel)]="dateRange"
+  (ngModelChange)="onChange($event)"
+  (nzOnCalendarChange)="onCalendarChange($event)"
+  (nzOnOk)="onOk($event)"
+></nz-range-picker>

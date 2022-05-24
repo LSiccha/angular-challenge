@@ -8,6 +8,8 @@ import { CryptoListComponent } from './components/crypto-list/crypto-list.compon
 import { CryptosComponent } from './pages/cryptos/cryptos.component';
 import { CryptoDetailComponent } from './pages/crypto-detail/crypto-detail.component';
 import { StockChartComponent } from './components/stock-chart/stock-chart.component';
+import { IntervalSelectorComponent } from './components/interval-selector/interval-selector.component';
+import { DatePickerComponent } from './components/date-picker/date-picker.component';
 
 
 @NgModule({
@@ -16,7 +18,9 @@ import { StockChartComponent } from './components/stock-chart/stock-chart.compon
     CryptoListComponent,
     CryptosComponent,
     CryptoDetailComponent,
-    StockChartComponent
+    StockChartComponent,
+    IntervalSelectorComponent,
+    DatePickerComponent
   ],
   imports: [
     CommonModule,

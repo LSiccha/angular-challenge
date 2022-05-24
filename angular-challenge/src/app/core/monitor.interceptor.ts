@@ -24,6 +24,6 @@ export class MonitorInterceptor implements HttpInterceptor {
 
   private logRequestTime(start: number, url: string, method: string){
     const requestDuration = `${performance.now() - start}`;
-    console.log(`HTTP ${method} ${url} - ${requestDuration} miliseconds` )
+    //console.log(`HTTP ${method} ${url} - ${requestDuration} miliseconds` )
   }
 }

@@ -3,8 +3,8 @@ import {Candle} from "../../models/candle.model";
 import {CoinCapService} from "../../services/coin-cap.service";
 import {ActivatedRoute} from "@angular/router";
 import {Asset} from "../../models/asset";
-import {Subscription, timer} from "rxjs";
-import {switchMap} from "rxjs/operators";
+import {of, Subscription, timer} from "rxjs";
+import {catchError, filter, switchMap} from "rxjs/operators";
 
 @Component({
   selector: 'app-crypto-detail',
@@ -23,6 +23,7 @@ export class CryptoDetailComponent implements OnInit, OnDestroy {
     start: Date.now() - 10500000,
     end: Date.now()
   }
+
 
   asset!: Asset;
   candles!: Candle[]
@@ -62,7 +63,7 @@ export class CryptoDetailComponent implements OnInit, OnDestroy {
       .subscribe(
         data => {
           this.asset = data.data
-          console.log(this.asset)
+         // console.log(this.asset)
         }
       )
   }
@@ -72,13 +73,17 @@ export class CryptoDetailComponent implements OnInit, OnDestroy {
     pipe(
       switchMap(() => {
         return this.coinService.getCandles(this.candleParams)
-      })
+          .pipe(catchError( err => {
+            return of(undefined)
+          }))
+      }),
+      filter((data) => {return data !== undefined})
     )
       .subscribe(
         (data: any) => {
           this.candles = data.data;
           this.formatCandles();
-          console.log(this.candles)
+          //console.log(this.candles)
         }
       )
   }
@@ -117,5 +122,13 @@ export class CryptoDetailComponent implements OnInit, OnDestroy {
   }
 
 
+  updateInterval(interval: string) {
+    this.candleParams.interval = interval
+  }
 
+  updateDateRange(dateRange: number[]) {
+    this.candleParams.start = dateRange[0];
+    this.candleParams.end = dateRange[1];
+    console.log(dateRange)
+  }
 }

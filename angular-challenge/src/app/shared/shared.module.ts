@@ -17,6 +17,8 @@ import {FormsModule} from "@angular/forms";
 import { NumberSuffixPipe } from './pipes/number-suffix.pipe';
 import {NzBreadCrumbModule} from "ng-zorro-antd/breadcrumb";
 import { CheckChangeDirective } from './directives/check-change.directive';
+import {NzRadioModule} from "ng-zorro-antd/radio";
+import {NzDatePickerModule} from "ng-zorro-antd/date-picker";
 
 
 @NgModule({
@@ -41,6 +43,8 @@ import { CheckChangeDirective } from './directives/check-change.directive';
         NzInputModule,
         NzSelectModule,
         NzDropDownModule,
+        NzRadioModule,
+        NzDatePickerModule,
         FormsModule,
         NumberSuffixPipe,
         NzBreadCrumbModule,
