@@ -1,16 +1,30 @@
-import {AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {AfterViewInit, ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 import {Stock} from "@antv/g2plot";
 import {Candle} from "../../models/candle.model";
 
 @Component({
   selector: 'app-stock-chart',
   templateUrl: './stock-chart.component.html',
-  styleUrls: ['./stock-chart.component.css']
+  styleUrls: ['./stock-chart.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class StockChartComponent implements OnInit, AfterViewInit, OnChanges {
+export class StockChartComponent implements OnInit, AfterViewInit {
 
   stockPlot!: Stock;
-  @Input() data!: Candle[]
+
+  private _data: Candle[] = []
+  @Input('data')
+  set data(data){
+    this._data = data;
+    if (this.stockPlot){
+      this.stockPlot.changeData(this._data)
+    }
+  }
+  get data(){
+    console.log('change detection')
+    return this._data
+  }
+
   constructor() { }
 
   ngOnInit(): void {
@@ -51,6 +65,7 @@ export class StockChartComponent implements OnInit, AfterViewInit, OnChanges {
       },
     }
 
+
     const options = {
       appendPadding: [0, 10, 0, 0],
       data : this.data,
@@ -67,11 +82,14 @@ export class StockChartComponent implements OnInit, AfterViewInit, OnChanges {
 
   }
 
+  /*
   ngOnChanges(changes: SimpleChanges): void {
     if (!changes.data.isFirstChange()){
-      this.stockPlot.changeData(this.data
-      )
+      this.stockPlot.changeData(this.data);
+
     }
   }
+
+   */
 
 }

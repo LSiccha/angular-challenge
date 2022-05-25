@@ -8,11 +8,13 @@ import { en_US } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
 import { FormsModule } from '@angular/forms';
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IconsProviderModule } from './icons-provider.module';
 import { StoreModule } from '@ngrx/store';
-import {MonitorInterceptor} from "./core/monitor.interceptor";
+import { MonitorInterceptor} from "./core/interceptors/monitor.interceptor";
+import { userReducer } from "./store/reducers/users.reducer";
+import { reducers } from "./store";
 
 registerLocaleData(en);
 
@@ -27,7 +29,7 @@ registerLocaleData(en);
     HttpClientModule,
     BrowserAnimationsModule,
     IconsProviderModule,
-    StoreModule.forRoot({}, {})
+    StoreModule.forRoot(reducers)
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },

@@ -1,6 +1,11 @@
-<nz-table #filterTable [nzData]="displayData" nzTableLayout="fixed">
+<nz-table
+  #filterTable
+  [nzData]="displayData"
+  nzTableLayout="fixed"
+  (nzCurrentPageDataChange)="onCurrentPageDataChange($event)">
   <thead>
   <tr>
+    <th [nzChecked]="checked" (nzCheckedChange)="onAllChecked($event)"></th>
     <th nzCustomFilter>
       Name
       <nz-filter-trigger [(nzVisible)]="visible"
@@ -20,6 +25,10 @@
   </thead>
   <tbody>
   <tr *ngFor="let data of filterTable.data">
+    <td
+      [nzChecked]="setOfCheckedId.has(data.id)"
+      (nzCheckedChange)="onItemChecked(data.id, $event)"
+    ></td>
     <td class="asset" ><span [routerLink]="['./',data.id]">{{ data.name }}</span></td>
     <td>{{ data.rank }}</td>
     <td>{{ data.priceUsd | number }}</td>

@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
 import {Candle} from "../../models/candle.model";
 import {CoinCapService} from "../../services/coin-cap.service";
 import {ActivatedRoute} from "@angular/router";
@@ -9,7 +9,7 @@ import {catchError, filter, switchMap} from "rxjs/operators";
 @Component({
   selector: 'app-crypto-detail',
   templateUrl: './crypto-detail.component.html',
-  styleUrls: ['./crypto-detail.component.css']
+  styleUrls: ['./crypto-detail.component.css'],
 })
 export class CryptoDetailComponent implements OnInit, OnDestroy {
 
@@ -83,7 +83,7 @@ export class CryptoDetailComponent implements OnInit, OnDestroy {
         (data: any) => {
           this.candles = data.data;
           this.formatCandles();
-          //console.log(this.candles)
+          console.log(this.candles)
         }
       )
   }

@@ -11,9 +11,12 @@ export class CryptoListComponent implements OnInit, OnChanges {
   @ViewChild('searchByName') searchInput!: ElementRef
   @Input() data: Asset[] = []
   displayData: Asset[] = []
+  listOfCurrentPageData: readonly Asset[] = []
+
+  setOfCheckedId = new Set<string>();
   searchValue = ''
   visible: boolean = false;
-
+  checked = false;
   listOfColumn = [
     {
       title: 'Rank',
@@ -72,4 +75,34 @@ export class CryptoListComponent implements OnInit, OnChanges {
   }
 
 
+  onAllChecked(checked: boolean) {
+    console.log(this.setOfCheckedId)
+
+    this.listOfCurrentPageData
+      .forEach(({ id }) => this.updateCheckedSet(id, checked));
+    this.refreshCheckedStatus();
+  }
+
+  private updateCheckedSet(id: string, checked: any) {
+    if (checked) {
+      this.setOfCheckedId.add(id);
+    } else {
+      this.setOfCheckedId.delete(id);
+    }
+    console.log(this.setOfCheckedId)
+  }
+
+  private refreshCheckedStatus(): void {
+    this.checked = this.displayData.every(({ id }) => this.setOfCheckedId.has(id));
+  }
+
+  onItemChecked(id: string, checked: boolean) {
+    this.updateCheckedSet(id, checked);
+    this.refreshCheckedStatus();
+  }
+
+  onCurrentPageDataChange(data: readonly Asset[]) {
+    this.listOfCurrentPageData = data;
+    this.refreshCheckedStatus()
+  }
 }

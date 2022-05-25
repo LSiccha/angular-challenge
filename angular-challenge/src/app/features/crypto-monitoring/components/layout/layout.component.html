@@ -24,13 +24,17 @@
   <nz-layout>
     <nz-header>
       <div class="app-header">
-        <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
+        <span nz-col  class="header-trigger" (click)="isCollapsed = !isCollapsed">
             <i class="trigger"
                nz-icon
                [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
             ></i>
         </span>
+        <span class="app-avatar">
+          <app-avatar></app-avatar>
+        </span>
       </div>
+
     </nz-header>
     <nz-content>
       <div class="inner-content">

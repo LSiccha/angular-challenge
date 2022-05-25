@@ -19,36 +19,59 @@ import {NzBreadCrumbModule} from "ng-zorro-antd/breadcrumb";
 import { CheckChangeDirective } from './directives/check-change.directive';
 import {NzRadioModule} from "ng-zorro-antd/radio";
 import {NzDatePickerModule} from "ng-zorro-antd/date-picker";
+import {NzAvatarModule} from "ng-zorro-antd/avatar";
+import { UsersGroupComponent } from './components/users-group/users-group.component';
 
 
 @NgModule({
   declarations: [
     NumberSuffixPipe,
-    CheckChangeDirective
+    CheckChangeDirective,
+    UsersGroupComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    NzLayoutModule,
+    NzMenuModule,
+    NzIconModule,
+    NzTypographyModule,
+    NzGridModule,
+    NzButtonModule,
+    NzTableModule,
+    NzDividerModule,
+    NzModalModule,
+    NzFormModule,
+    NzInputModule,
+    NzSelectModule,
+    NzDropDownModule,
+    NzRadioModule,
+    NzDatePickerModule,
+    FormsModule,
+    NzBreadCrumbModule,
+    NzAvatarModule
   ],
-    exports: [
-        NzLayoutModule,
-        NzMenuModule,
-        NzIconModule,
-        NzTypographyModule,
-        NzGridModule,
-        NzButtonModule,
-        NzTableModule,
-        NzDividerModule,
-        NzModalModule,
-        NzFormModule,
-        NzInputModule,
-        NzSelectModule,
-        NzDropDownModule,
-        NzRadioModule,
-        NzDatePickerModule,
-        FormsModule,
-        NumberSuffixPipe,
-        NzBreadCrumbModule,
-        CheckChangeDirective
-    ]
+  exports: [
+    NzLayoutModule,
+    NzMenuModule,
+    NzIconModule,
+    NzTypographyModule,
+    NzGridModule,
+    NzButtonModule,
+    NzTableModule,
+    NzDividerModule,
+    NzModalModule,
+    NzFormModule,
+    NzInputModule,
+    NzSelectModule,
+    NzDropDownModule,
+    NzRadioModule,
+    NzDatePickerModule,
+    FormsModule,
+    NumberSuffixPipe,
+    NzBreadCrumbModule,
+    CheckChangeDirective,
+    NzAvatarModule,
+    UsersGroupComponent
+  ]
 })
 export class SharedModule { }

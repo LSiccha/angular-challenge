@@ -1,15 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {CoinCapService} from "../../services/coin-cap.service";
 import {Asset} from "../../models/asset";
+import {User} from "../../../../core/models/user.model";
+import {closestNode} from "@angular/core/schematics/utils/typescript/nodes";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-cryptos',
   templateUrl: './cryptos.component.html',
   styleUrls: ['./cryptos.component.css']
 })
-export class CryptosComponent implements OnInit {
+export class CryptosComponent implements OnInit, OnDestroy {
+
 
   data: Asset[] = []
+  subscription!: Subscription
 
   constructor(
     private coinService: CoinCapService
@@ -18,15 +23,21 @@ export class CryptosComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+
   }
 
   private getData(){
-    this.coinService.getAssets().subscribe(
+    this.subscription = this.coinService.getAssets().subscribe(
       res => {
         this.data = res.data;
         console.log(this.data)
       }
     )
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe()
   }
 
 }

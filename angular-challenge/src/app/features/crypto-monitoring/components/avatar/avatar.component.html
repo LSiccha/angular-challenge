@@ -1,0 +1,18 @@
+
+<div>
+  <nz-avatar [nzText]="user.id" nzSize="default" [ngStyle]="{ 'background-color' :'#f9383d' }">
+  </nz-avatar>
+  <nz-divider nzType="vertical"></nz-divider>
+  <a nz-dropdown class="name" [nzDropdownMenu]="location">
+     {{user.id}}
+    <i nz-icon nzType="down"></i>
+  </a>
+  <nz-dropdown-menu #location="nzDropdownMenu" >
+    <ul nz-menu nzSelectable>
+      <li nz-menu-item>Latitude: {{user.latitude}}</li>
+      <li nz-menu-item>Longitude: {{user.longitude}}</li>
+    </ul>
+  </nz-dropdown-menu>
+
+</div>
+

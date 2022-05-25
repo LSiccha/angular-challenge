@@ -10,6 +10,7 @@ import { CryptoDetailComponent } from './pages/crypto-detail/crypto-detail.compo
 import { StockChartComponent } from './components/stock-chart/stock-chart.component';
 import { IntervalSelectorComponent } from './components/interval-selector/interval-selector.component';
 import { DatePickerComponent } from './components/date-picker/date-picker.component';
+import { AvatarComponent } from './components/avatar/avatar.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { DatePickerComponent } from './components/date-picker/date-picker.compon
     CryptoDetailComponent,
     StockChartComponent,
     IntervalSelectorComponent,
-    DatePickerComponent
+    DatePickerComponent,
+    AvatarComponent
   ],
   imports: [
     CommonModule,
