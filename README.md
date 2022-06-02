@@ -5,6 +5,9 @@ Modified: Sun May 15 2022 15:14:11 GMT-0400 (hora de Bolivia)
 
 # Desafío de Codificación Frontend
 
+## Diseño
+![Home_Page](/README/design.png "Home Page")
+
 ## Introducción
 
 Se le ha asignado la tarea de crear una **Aplicación de Monitoreo de Critomonedas** utilizando la última versión de **Angular**. Esta aplicación permitirá a los usuarios ver en tiempo real, mediante un gráfico de velas, los valores de la criptomoneda que se seleccione desde una lista.
