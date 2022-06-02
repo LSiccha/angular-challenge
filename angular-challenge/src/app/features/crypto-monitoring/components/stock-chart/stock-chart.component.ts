@@ -1,6 +1,7 @@
 import {AfterViewInit, ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 import {Stock} from "@antv/g2plot";
-import {Candle} from "../../models/candle.model";
+import { Candle} from "../../services/models/candle.model";
+import {Colors} from "../../../../core/enums/colors.enum";
 
 @Component({
   selector: 'app-stock-chart',
@@ -17,7 +18,22 @@ export class StockChartComponent implements OnInit, AfterViewInit {
   set data(data){
     this._data = data;
     if (this.stockPlot){
-      this.stockPlot.changeData(this._data)
+
+            this.stockPlot.changeData(this._data)
+
+
+
+      /*
+        this.stockPlot.update(
+        {
+          data: this._data
+        }
+      )
+       */
+
+
+
+      console.log('Render')
     }
   }
   get data(){
@@ -71,8 +87,8 @@ export class StockChartComponent implements OnInit, AfterViewInit {
       data : this.data,
       xField: 'period',
       yField: ['open', 'close', 'high', 'low'] as [string, string, string, string],
-      fallingFill: '#ef5350',
-      risingFill: '#26a69a',
+      fallingFill: Colors.Red,
+      risingFill: Colors.Green,
       slider: {},
       tooltip: tooltip
     }

@@ -1,0 +1,31 @@
+<button
+  nz-button
+  nzType="primary"
+  nz-popover
+  [(nzPopoverVisible)]="visible"
+  nzPopoverTrigger="click"
+  [nzPopoverContent]="contentTemplate"
+  nzPopoverPlacement="bottom"
+>
+  Exchanges
+</button>
+<ng-template #contentTemplate>
+  <div style="width: 300px;">
+    <nz-list nzItemLayout="horizontal">
+      <nz-list-item (click)="goToExchange(exchange.url)" *ngFor="let exchange of exchanges">
+        <nz-list-item-meta>
+          <nz-list-item-meta-title>
+            {{exchange.name}}
+          </nz-list-item-meta-title>
+          <nz-list-item-meta-description>
+            <p style="color: #8c8c9b; font-size: 0.77rem" nz-typography>{{exchange.description}}</p>
+          </nz-list-item-meta-description>
+        </nz-list-item-meta>
+        <nz-list-item-extra>
+          <img style="border-radius: 10px" nz-image width="90" alt="logo" [nzSrc]="exchange.logo" />
+        </nz-list-item-extra>
+        </nz-list-item>
+    </nz-list>
+  </div>
+
+</ng-template>

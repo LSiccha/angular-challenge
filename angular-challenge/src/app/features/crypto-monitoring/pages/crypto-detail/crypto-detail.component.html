@@ -1,71 +1,117 @@
+<!--
 <div>
   <app-users-group></app-users-group>
 </div>
+-->
+
+<ng-template [ngIf]="asset">
+  <nz-page-header>
+    <nz-page-header-title>{{asset.name}}</nz-page-header-title>
+    <nz-page-header-subtitle>{{asset.symbol}}</nz-page-header-subtitle>
+    <nz-page-header-subtitle> <nz-tag [nzColor]="'#1890ff'">Rank #{{asset.rank}}</nz-tag>
+    </nz-page-header-subtitle>
+    <nz-page-header-content  class="coin-info">
+      <nz-row [nzGutter]="16">
+        <nz-col nzSpan="14">
+          <nz-statistic
+            nzTitle="Asset Price"
+            [nzValueStyle]="{'font-size': '2.2rem'}"
+            [nzValue]="(asset.priceUsd | currency : 'USD' : undefined : '1.2-2')!"
+            [nzSuffix]="postFix"
+          ></nz-statistic>
+        </nz-col>
+        <nz-col nzSpan="10">
+            <app-popovers></app-popovers>
+        </nz-col>
+      </nz-row>
+      <ng-template #postFix >
+        <div class="price-change" appCheckChange [price]="asset.changePercent24Hr">
+        <span>
+          {{asset.priceChange | number : '1.0-2'  | numberSign }}
+        </span>
+          <span>
+          ({{asset.changePercent24Hr | number :'1.0-2' | numberSign  }}% )
+        </span>
+        </div>
+      </ng-template>
+      <nz-row [nzGutter]="16" >
+        <nz-col nzSpan="14">
+          <nz-row>
+            <nz-col nzSpan="8">
+              <nz-statistic
+                nzTitle="Market Cap"
+                [nzValueStyle]="{'font-size': '1rem'}"
+                [nzValue]="(asset.marketCapUsd | currency)!"
+              >
+              </nz-statistic>
+            </nz-col>
+            <nz-col nzSpan="8">
+              <nz-statistic
+                nzTitle="Volume"
+                [nzValueStyle]="{'font-size': '1rem'}"
+                [nzValue]="(asset.volumeUsd24Hr | currency)!"
+              >
+              </nz-statistic>
+            </nz-col>
+            <nz-col nzSpan="8">
+              <nz-statistic
+                nzTitle="Supply"
+                [nzValueStyle]="{'font-size': '1rem'}"
+                [nzValue]="(asset.supply | numberSuffix)!"
+              >
+              </nz-statistic>
+            </nz-col>
+          </nz-row>
+        </nz-col>
+
+      </nz-row>
+    </nz-page-header-content>
+  </nz-page-header>
+</ng-template>
+
 <nz-divider></nz-divider>
 
-<div class="asset-info" *ngIf="asset">
+<nz-divider></nz-divider>
 
-  <div class="header">
-    <div class="asset-title">
-      {{asset.symbol}} USD
-    </div>
-    <div class="asset-name">
-      {{asset.name}}
-    </div>
-  </div>
-
-  <div class="asset-price" *ngIf="asset">
-    <div class="price-container" nz-row nzAlign="bottom">
-      <div class="price" appCheckPrice>
-        {{ asset.priceUsd | number : '1.1-2' }}
-      </div>
-      <div>USD</div>
-      <div class="price-change" appCheckChange [price]="getPriceChangePercent()">
-        <span>
-          {{getPriceChangePercent() > 0 ? '+' : ''}}{{getPriceChange() | number : '1.0-2'}}
-        </span>
-        <span>
-          ({{getPriceChangePercent() > 0 ? '+' : ''}}{{asset.changePercent24Hr | number : '1.0-2'}}% )
-        </span>
-      </div>
-    </div>
-  </div>
-
-
-  <div nz-row class="asset-values">
-    <div nz-col nzSpan="4">
-      <div class="value">
-        {{asset.marketCapUsd | numberSuffix : 2}}
-      </div>
-      <div>CAP. DE MERCADO</div>
-    </div>
-    <div nz-col nzSpan="4">
-      <div class="value">
-        {{asset.volumeUsd24Hr | numberSuffix : 2}}
-      </div>
-      <div>VOLUMEN</div>
-    </div>
-    <div nz-col nzSpan="4">
-      <div class="value">
-        {{asset.supply | numberSuffix : 2}}
-      </div>
-      <div>OFERTA</div>
-    </div>
-  </div>
+<div class="main-container">
+  <ng-template [ngIf]="asset">
+    <h4 nz-typography>
+      {{asset.name}} to USD Graph
+    </h4>
+  </ng-template>
+  <nz-row nzGutter="20">
+    <nz-col nzSpan="24" >
+      <ng-template [ngIf]="candles" >
+        <div class="graph-container">
+          <app-graph-controls nz-row nzJustify="center" (onRealTime)="resetToRealTime()" (onSubmit)="updateParams($event)"></app-graph-controls>
+          <app-stock-chart [data]="candles"></app-stock-chart>
+        </div>
+      </ng-template>
+      <nz-divider></nz-divider>
+      <h4 nz-typography>
+        {{asset.name}} to USD Converter
+      </h4>
+      <app-price-converter [asset]="asset"></app-price-converter>
+    </nz-col>
+    <!--
+    <nz-row nzSpan="7" >
+      <app-comments ></app-comments>
+    </nz-row>
+    -->
+  </nz-row>
+  <nz-divider></nz-divider>
+  <h4 nz-typography>
+    Latest Comments
+  </h4>
+  <app-comments ></app-comments>
 
 </div>
 
-<nz-divider>
 
-</nz-divider>
 
-<h1 *ngIf="asset">
-  {{asset.symbol}}/USD Graph
 
-</h1>
+
+<!--
 <app-interval-selector (onSubmit)="updateInterval($event)"></app-interval-selector>
 <app-date-picker (onSubmit)="updateDateRange($event)"></app-date-picker>
-
-<div *ngIf="candles">
-  <app-stock-chart [data]="candles"></app-stock-chart>
-</div>
+-->

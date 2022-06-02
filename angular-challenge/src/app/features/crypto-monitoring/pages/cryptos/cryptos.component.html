@@ -1,8 +1,32 @@
-<div>
-  <app-users-group></app-users-group>
-</div>
-<nz-divider></nz-divider>
 
-<h1>Cryptocurrency List</h1>
+<nz-page-header nzTitle="Today's Cryptocurrency">
+  <nz-page-header-content>
+    <p nz-paragraph>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam lacus metus, vehicula ut tincidunt a, sollicitudin vitae lectus. Vestibulum neque eros, luctus ut bibendum vitae, iaculis vitae urna. Aenean in dui et orci semper interdum. Etiam gravida suscipit libero. Donec libero tortor, porta et faucibus eget, dignissim in ante. In lectus augue, varius id lectus nec, efficitur luctus sem. Maecenas mattis, justo malesuada sollicitudin suscipit, eros felis accumsan nisi, ac cursus nisi massa eu justo.
+    </p>
+  </nz-page-header-content>
+</nz-page-header>
+
+<nz-row nzJustify="end" class="switch-container">
+  <h3>Highlights</h3>
+  <nz-switch [(ngModel)]="cardsVisible"></nz-switch>
+</nz-row>
+
+<ng-template [ngIf]="cardsVisible">
+  <ng-template [ngIf]="highlights">
+    <nz-row nzGutter="16" nzAlign="middle" nzJustify="center">
+      <nz-col nzSpan="7">
+        <app-highlight-card  [data]="highlights.biggestWinners"  icon="caret-up" [color]="green" [title]="'Biggest Winners'"></app-highlight-card>
+      </nz-col>
+      <nz-col nzSpan="7">
+        <app-highlight-card  [data]="highlights.biggestLosers" icon="caret-down" [color]="red" [title]="'Biggest Losers'"></app-highlight-card>
+      </nz-col>
+      <nz-col nzSpan="7">
+      </nz-col>
+    </nz-row>
+  </ng-template>
+</ng-template>
+
+<nz-divider></nz-divider>
 
 <app-crypto-list [data]="data"></app-crypto-list>

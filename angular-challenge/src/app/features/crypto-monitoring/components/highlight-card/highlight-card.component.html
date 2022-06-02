@@ -1,0 +1,37 @@
+
+
+<div class="table-container">
+  <nz-table [nzData]="data" [nzShowPagination]="false" [nzTitle]="titleRef">
+    <tbody>
+    <tr *ngFor="let asset of data">
+      <td width="5px">{{asset.rank}}</td>
+      <td width="70%" class="name" [routerLink]="'/crypto/'+asset.id"> {{asset.name}}</td>
+      <td appCheckChange [price]="asset.changePercent24Hr" >{{ asset.changePercent24Hr | number | numberSign}}% </td>    </tr>
+    </tbody>
+  </nz-table>
+</div>
+
+<ng-template #titleRef>
+  <nz-space>
+    <span *ngIf="icon"><i nz-icon
+             [nzType]="icon" [ngStyle]="{'color': color}"></i>
+      {{title}}
+    </span>
+  </nz-space>
+</ng-template>
+
+
+
+
+
+<!--
+  <nz-card  [nzBordered]="false"
+            nzTitle="Trending" [nzExtra]="extraTemplate">
+
+  </nz-card>
+
+<ng-template #extraTemplate>
+  <a>More</a>
+</ng-template>
+
+-->

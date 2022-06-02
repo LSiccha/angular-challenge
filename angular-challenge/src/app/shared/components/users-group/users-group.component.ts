@@ -1,15 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {UserStore} from "../../../store/models/user-store.model";
 import {Store} from "@ngrx/store";
 import {Observable} from "rxjs";
 
-import * as UsersActions from '../../../store/actions/users.actions'
+import * as UsersActions from '../../../core/store/actions/users.actions'
 import {User} from "../../../core/models/user.model";
+import {AppState} from "../../../core/store";
 
-interface AppState {
-  users: UserStore[],
-  currentUser: User
-}
 
 @Component({
   selector: 'app-users-group',
@@ -18,9 +14,8 @@ interface AppState {
 })
 export class UsersGroupComponent implements OnInit {
 
-  counter: number = -1;
 
-  users: Observable<UserStore[]>
+  users: Observable<User[]>
   currentUser: Observable<User>
 
   constructor(
@@ -31,9 +26,8 @@ export class UsersGroupComponent implements OnInit {
   }
 
   addUser(){
-    let user: UserStore = {
+    let user: User = {
       id: '0123',
-      name: 'Usuario'
     }
     this.store.dispatch(new UsersActions.AddUser(user))
   }

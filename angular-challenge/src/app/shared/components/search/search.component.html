@@ -1,0 +1,28 @@
+
+<nz-input-group nzSize="large" nzSearch [nzAddOnAfter]="suffixIconButton">
+  <input type="text"
+         [(ngModel)]="inputValue"
+         nz-input
+         placeholder="input search text"
+         [nzAutocomplete]="auto"
+         (ngModelChange)="onChange($event)"
+  />
+</nz-input-group>
+<ng-template #suffixIconButton>
+  <button nz-button nzType="primary" nzSearch><i nz-icon nzType="search"></i></button>
+</ng-template>
+<nz-autocomplete #auto  >
+  <nz-auto-optgroup  *ngFor="let group of optionGroups" [nzLabel]="groupTitle">
+    <ng-template #groupTitle>
+            <span>
+              {{ group.title }}
+              <a class="more-link" target="_blank">More</a>
+            </span>
+    </ng-template>
+    <nz-auto-option (click)="navigate(option.id)" *ngFor="let option of group.children"
+                    [nzLabel]="option.name" [nzValue]="option.name">
+      {{ option.name }}
+      <span class="certain-search-item-count">#{{ option.rank }}</span>
+    </nz-auto-option>
+  </nz-auto-optgroup>
+</nz-autocomplete>

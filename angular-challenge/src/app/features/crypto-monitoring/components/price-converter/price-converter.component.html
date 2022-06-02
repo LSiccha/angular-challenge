@@ -1,0 +1,40 @@
+
+
+<nz-row [nzGutter]="16">
+  <nz-col [nzSpan]="12">
+    <nz-card>
+      <nz-row nzAlign="middle">
+        <nz-col nzSpan="8">
+          <nz-statistic
+            [nzValue]="asset.name"
+            [nzTitle]="asset.symbol"
+            [nzPrefix]=""
+            [nzSuffix]="''"
+            [nzValueStyle]="{ color: '#3F8600', 'font-size': '1rem'  }"
+          ></nz-statistic>
+        </nz-col>
+        <nz-col nzSpan="16">
+          <input width="400px" [(ngModel)]="assetInput" (ngModelChange)="getUsd()" nz-input placeholder="large size" nzSize="large" />
+        </nz-col>
+      </nz-row>
+    </nz-card>
+  </nz-col>
+  <nz-col [nzSpan]="12">
+    <nz-card>
+      <nz-row nzAlign="middle">
+        <nz-col nzSpan="10">
+          <nz-statistic
+            [nzValue]="'USD'"
+            [nzTitle]="'USD'"
+            [nzPrefix]=""
+            [nzSuffix]="''"
+            [nzValueStyle]="{ color: '#CF1322', 'font-size': '1rem'  }"
+          ></nz-statistic>
+        </nz-col>
+        <nz-col nzSpan="12">
+          <input [(ngModel)]="usdInput" (ngModelChange)="getAsset()" nz-input placeholder="large size" nzSize="large" />
+        </nz-col>
+      </nz-row>
+    </nz-card>
+  </nz-col>
+</nz-row>

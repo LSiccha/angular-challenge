@@ -1,0 +1,14 @@
+
+.ant-input-group-wrapper {
+  display: inline;
+}
+
+.certain-search-item-count {
+  position: absolute;
+  color: #999;
+  right: 16px;
+}
+
+.more-link {
+  float: right;
+}

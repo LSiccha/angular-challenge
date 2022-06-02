@@ -1,0 +1,17 @@
+
+nz-list-item:hover{
+  background-color: #f0f2f5;
+  cursor: pointer;
+}
+
+nz-list-item{
+  padding: 20px;
+}
+
+img{
+  margin-left: 20px;
+}
+
+::ng-deep.ant-popover-inner-content{
+  padding: 0;
+}

@@ -1,0 +1,15 @@
+
+
+
+<nz-range-picker nzSize="small"
+  [nzShowTime]="{ nzFormat: 'HH:mm' }"
+  nzFormat="yyyy-MM-dd HH:mm"
+  [(ngModel)]="params.dateRange"
+  (ngModelChange)="submit()"
+></nz-range-picker>
+<button nzSize="small" nz-button (click)="submitReal()">Real Time</button>
+<nz-radio-group [(ngModel)]="params.interval" (ngModelChange)="submit()" nzSize="small">
+  <label nz-radio-button [nzValue]="interval.interval" *ngFor="let interval of candleIntervals">
+    <span>{{interval.interval}}</span>
+  </label>
+</nz-radio-group>

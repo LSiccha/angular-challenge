@@ -10,11 +10,10 @@ import en from '@angular/common/locales/en';
 import { FormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { IconsProviderModule } from './icons-provider.module';
 import { StoreModule } from '@ngrx/store';
 import { MonitorInterceptor} from "./core/interceptors/monitor.interceptor";
-import { userReducer } from "./store/reducers/users.reducer";
-import { reducers } from "./store";
+import {IconsProviderModule} from "./icons-provider.module";
+import {reducers} from "./core/store";
 
 registerLocaleData(en);
 
@@ -27,8 +26,8 @@ registerLocaleData(en);
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    BrowserAnimationsModule,
     IconsProviderModule,
+    BrowserAnimationsModule,
     StoreModule.forRoot(reducers)
   ],
   providers: [

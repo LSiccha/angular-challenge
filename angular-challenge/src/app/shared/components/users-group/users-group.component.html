@@ -1,13 +1,13 @@
 
-<h4 nz-typography *ngIf="currentUser | async as cu">
-  ID: {{cu.id}}
-  | Latitude: {{cu.latitude | number}}
-  | Longitude: {{cu.longitude | number}}
+<h4 nz-typography *ngIf="currentUser | async as myUser">
+  ID: {{myUser.id}}
+  | Latitude: {{myUser.latitude | number}}
+  | Longitude: {{myUser.longitude | number}}
 </h4>
 <nz-divider></nz-divider>
 <nz-avatar-group>
-  <div *ngIf="users | async as u">
-    <nz-avatar *ngFor="let user of u" [nzText]="user.name"></nz-avatar>
+  <div *ngIf="users | async as storeUsers">
+    <nz-avatar *ngFor="let user of storeUsers" [nzText]="'name'"></nz-avatar>
   </div>
 </nz-avatar-group>
 <button nz-button (click)="addUser()">+</button>

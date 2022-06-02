@@ -5,7 +5,13 @@
   (nzCurrentPageDataChange)="onCurrentPageDataChange($event)">
   <thead>
   <tr>
-    <th [nzChecked]="checked" (nzCheckedChange)="onAllChecked($event)"></th>
+    <th [nzChecked]="checked" nzWidth="80px" (nzCheckedChange)="onAllChecked($event)"></th>
+    <th [nzSortFn]="rankHeader.compare"
+        [nzSortPriority]="rankHeader.priority"
+        nzWidth="80px"
+    >
+      {{ rankHeader.title }}
+    </th>
     <th nzCustomFilter>
       Name
       <nz-filter-trigger [(nzVisible)]="visible"
@@ -29,10 +35,10 @@
       [nzChecked]="setOfCheckedId.has(data.id)"
       (nzCheckedChange)="onItemChecked(data.id, $event)"
     ></td>
-    <td class="asset" ><span [routerLink]="['./',data.id]">{{ data.name }}</span></td>
     <td>{{ data.rank }}</td>
-    <td>{{ data.priceUsd | number }}</td>
-    <td>{{ data.changePercent24Hr | number}} </td>
+    <td class="asset" ><span [routerLink]="['./',data.id]">{{ data.name }}</span></td>
+    <td>{{ data.priceUsd | currency }}</td>
+    <td appCheckChange [price]="data.changePercent24Hr" >{{ data.changePercent24Hr | number | numberSign}}% </td>
     <td>{{ data.supply | numberSuffix : 2 }} </td>
     <td>{{ data.marketCapUsd | numberSuffix :2 }}</td>
   </tr>

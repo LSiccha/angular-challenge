@@ -1,5 +1,5 @@
 import {Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
-import {Asset} from "../../models/asset";
+import {Asset} from "../../services/models/asset";
 
 @Component({
   selector: 'app-crypto-list',
@@ -13,16 +13,18 @@ export class CryptoListComponent implements OnInit, OnChanges {
   displayData: Asset[] = []
   listOfCurrentPageData: readonly Asset[] = []
 
+  rankHeader = {
+    title: 'Rank',
+    compare: (a: Asset, b: Asset) => Number(a.rank) - Number(b.rank),
+    priority: 1
+  }
+
   setOfCheckedId = new Set<string>();
   searchValue = ''
   visible: boolean = false;
   checked = false;
   listOfColumn = [
-    {
-      title: 'Rank',
-      compare: (a: Asset, b: Asset) => Number(a.rank) - Number(b.rank),
-      priority: 1
-    },
+
     {
       title: 'Last Price',
       compare: (a: Asset, b: Asset) => Number(a.priceUsd) - Number(b.priceUsd),
@@ -49,7 +51,10 @@ export class CryptoListComponent implements OnInit, OnChanges {
 
   search(): void {
     this.visible = false;
-    this.displayData = this.data.filter((item: Asset) => item.name.indexOf(this.searchValue) !== -1);
+    this.displayData = this.data.filter((item: Asset) => {
+      let name = item.name.toLowerCase();
+      return name.indexOf(this.searchValue.toLowerCase()) !== -1
+    });
 
   }
 

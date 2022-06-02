@@ -1,0 +1,11 @@
+
+.switch-container {
+  justify-content: end;
+  max-width: 1320px;
+  margin-bottom: 20px;
+}
+
+.switch-container h3 {
+  margin-right: 10px;
+  color: #bfbfbf;
+}

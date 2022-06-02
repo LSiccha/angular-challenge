@@ -1,10 +1,16 @@
-import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
-import {Candle} from "../../models/candle.model";
+import { Component, OnDestroy, OnInit} from '@angular/core';
+import {Candle} from "../../services/models/candle.model";
 import {CoinCapService} from "../../services/coin-cap.service";
 import {ActivatedRoute} from "@angular/router";
-import {Asset} from "../../models/asset";
+import {Asset} from "../../services/models/asset";
 import {of, Subscription, timer} from "rxjs";
-import {catchError, filter, switchMap} from "rxjs/operators";
+import {catchError, filter, map, switchMap} from "rxjs/operators";
+import {ToSubmit} from "../../components/graph-controls/graph-controls.component";
+
+
+export interface AssetWithPriceChange extends Asset {
+  priceChange?: number
+}
 
 @Component({
   selector: 'app-crypto-detail',
@@ -15,17 +21,18 @@ export class CryptoDetailComponent implements OnInit, OnDestroy {
 
 
   id: string = ''
+  selectedDate: boolean = false;
   candleParams = {
     exchange: 'binance',
     interval: 'm1',
     baseId: '',
     quoteId: 'usd-coin',
-    start: Date.now() - 10500000,
+    start: Date.now() - 60000*60,
     end: Date.now()
   }
 
 
-  asset!: Asset;
+  asset!: AssetWithPriceChange;
   candles!: Candle[]
 
   candleSubscription!: Subscription;
@@ -39,15 +46,16 @@ export class CryptoDetailComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id']
     this.candleParams.baseId = this.id
-    this.getAsset(this.id)
+    this.getAsset()
     this.getPrices()
     this.getCandles()
   }
 
-  private getAsset(id: string){
-    this.coinService.get(id).subscribe(
+  private getAsset(){
+    this.coinService.get(this.id).subscribe(
       data => {
-        this.asset = data.data
+        this.asset = data
+        this.asset.priceChange = this.getPriceChange()
         console.log(this.asset)
       }
     )
@@ -56,15 +64,15 @@ export class CryptoDetailComponent implements OnInit, OnDestroy {
   private getPrices(){
     this.assetSubscription = timer(0, 1000).
     pipe(
-      switchMap(() => {
-        return this.coinService.get(this.id)
-      })
+      switchMap(() => this.coinService.get(this.id)
+      )
     )
       .subscribe(
         data => {
-          this.asset = data.data
-         // console.log(this.asset)
+          this.asset = data
+          this.asset.priceChange = this.getPriceChange()
         }
+         // console.log(this.asset)
       )
   }
 
@@ -72,24 +80,31 @@ export class CryptoDetailComponent implements OnInit, OnDestroy {
     this.candleSubscription = timer(0, 1000).
     pipe(
       switchMap(() => {
+        if (!this.selectedDate){
+          this.refreshEndParam();
+        }
         return this.coinService.getCandles(this.candleParams)
-          .pipe(catchError( err => {
-            return of(undefined)
-          }))
+          .pipe(
+            map((candles : Candle[]) => candles.map(candle => {
+              this.formatCandle(candle)
+              return candle;
+            })),
+            catchError( err => {return of(undefined)})
+          )
       }),
-      filter((data) => {return data !== undefined})
+      filter((data) => {return data !== undefined}),
     )
       .subscribe(
         (data: any) => {
-          this.candles = data.data;
-          this.formatCandles();
-          console.log(this.candles)
+          console.log(data)
+          this.candles = data;
+          //this.formatCandles();
+          //console.log(this.candles)
         }
       )
   }
 
-  private formatCandles(){
-    for (let candle of this.candles){
+  private formatCandle(candle: Candle){
       Object.keys(candle).forEach(
         key => {
           if (key === 'period'){
@@ -100,21 +115,37 @@ export class CryptoDetailComponent implements OnInit, OnDestroy {
           }
         }
       )
-    }
   }
 
-  greaterThan(value: string | number, compare: number){
-    return Number(value)>compare
-  }
-
-  getPriceChangePercent(){
-    return Number(this.asset.changePercent24Hr)
-  }
-
-  getPriceChange(){
+  private getPriceChange(){
     return (Number(this.asset.changePercent24Hr)*Number(this.asset.priceUsd))/100
   }
 
+  updateParams(newParams: ToSubmit){
+    if (newParams.start){
+      this.candleParams.start = newParams.start
+    }
+    if (newParams.end){
+      this.selectedDate = true;
+      this.candleParams.end = newParams.end
+    }
+    if (newParams.interval){
+      this.candleParams.interval = newParams.interval
+    }
+  }
+
+  resetToRealTime(){
+    this.selectedDate = false;
+    this.candleParams.start = Date.now() - 60000*180
+  }
+
+
+  /**
+   * Call before candle request
+   */
+  private refreshEndParam(){
+    this.candleParams.end = Date.now()
+  }
 
   ngOnDestroy(): void {
     this.assetSubscription.unsubscribe();
@@ -122,13 +153,6 @@ export class CryptoDetailComponent implements OnInit, OnDestroy {
   }
 
 
-  updateInterval(interval: string) {
-    this.candleParams.interval = interval
-  }
 
-  updateDateRange(dateRange: number[]) {
-    this.candleParams.start = dateRange[0];
-    this.candleParams.end = dateRange[1];
-    console.log(dateRange)
-  }
+
 }

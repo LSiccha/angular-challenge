@@ -2,6 +2,10 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {environment} from "../../../../environments/environment";
 import {Observable} from "rxjs";
+import {map} from "rxjs/operators";
+import {Asset} from "./models/asset";
+import {Candle} from "./models/candle.model";
+import {Response} from "./models/response.model";
 
 interface CandleParams  {
   exchange: string ,
@@ -23,16 +27,18 @@ export class CoinCapService {
     private http: HttpClient
   ) { }
 
-  public getAssets(): Observable<any>{
-    return this.http.get<any>(`${this.base_url}/assets`)
+  public getAssets(): Observable<Asset[]>{
+    return this.http.get<Response>(`${this.base_url}/assets`)
+      .pipe(map(data => data.data))
   }
 
-  public get(id: string): Observable<any>{
-    return this.http.get<any>(`${this.base_url}/assets/${id}`)
+  public get(id: string): Observable<Asset>{
+    return this.http.get<Response>(`${this.base_url}/assets/${id}`)
+      .pipe(map( data => data.data))
   }
 
-  getCandles(params: CandleParams
-  )
+  public getCandles(params: CandleParams
+  ) : Observable<Candle[]>
   {
     let p = new HttpParams()
       .set('exchange', params.exchange)
@@ -42,12 +48,13 @@ export class CoinCapService {
       .set('start', params.start)
       .set('end', params.end)
 
-    return this.http.get(
+    return this.http.get<Response>(
       `${this.base_url}/candles`,
       {
         params : p
       }
     )
+      .pipe(map(data => data.data));
 
   }
 

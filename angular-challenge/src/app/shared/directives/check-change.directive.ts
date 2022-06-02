@@ -1,11 +1,12 @@
 import {AfterViewInit, Directive, ElementRef, Input, OnChanges, SimpleChanges} from '@angular/core';
+import {Colors} from "../../core/enums/colors.enum";
 
 @Directive({
   selector: '[appCheckChange]'
 })
 export class CheckChangeDirective implements AfterViewInit, OnChanges{
 
-  @Input() price!: number;
+  @Input() price!: number | string;
 
   constructor(private el: ElementRef) {
   }
@@ -19,12 +20,14 @@ export class CheckChangeDirective implements AfterViewInit, OnChanges{
     this.checkPrice(this.price)
   }
 
-  checkPrice(price: number){
-    if (price >= 0){
-      this.el.nativeElement.style.color = '#26a69a'
-    }
-    else {
-      this.el.nativeElement.style.color = '#c62f3c'
+  checkPrice(price: number | string){
+    if (Number(price)){
+      if (price >= 0){
+        this.el.nativeElement.style.color = Colors.Green
+      }
+      else {
+        this.el.nativeElement.style.color = Colors.Red
+      }
     }
   }
 }

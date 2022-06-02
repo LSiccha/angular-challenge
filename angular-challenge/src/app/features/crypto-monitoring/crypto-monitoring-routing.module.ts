@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {LayoutComponent} from "./components/layout/layout.component";
-import {CryptoListComponent} from "./components/crypto-list/crypto-list.component";
+import {LayoutComponent} from "../../shared/components/layout/layout.component";
 import {CryptosComponent} from "./pages/cryptos/cryptos.component";
 import {CryptoDetailComponent} from "./pages/crypto-detail/crypto-detail.component";
 

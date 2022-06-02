@@ -1,4 +1,7 @@
 
+.coin-info{
+  max-width: 1000px;
+}
 
 
 .asset-title{
@@ -25,7 +28,7 @@
 }
 
 .price-change{
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   margin-left: 20px;
   font-weight: bolder;
 }
@@ -40,4 +43,19 @@
   font-size: 1.1rem;
   font-weight: bold;
 }
+
+.details-container{
+  max-width: 600px;
+}
+
+.main-container{
+  padding: 0 24px;
+}
+
+.graph-container{
+  padding-top: 20px;
+  background-color: #f0f2f5;
+  border-radius: 2px;
+}
+
 

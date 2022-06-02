@@ -1,8 +1,0 @@
-<nz-select  [(ngModel)]="selectedInterval" (ngModelChange)="submit()" >
-
-  <nz-option *ngFor="let interval of candleIntervals"
-             [nzValue]="interval.interval"
-             [nzLabel]="interval.label"
-  >
-  </nz-option>
-</nz-select>
